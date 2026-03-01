@@ -1,0 +1,1201 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Estadística – 3r ESO</title>
+<!-- MathJax for LaTeX -->
+<script>
+MathJax = {
+  tex: { inlineMath: [['$','$'], ['\\(','\\)']], displayMath: [['$$','$$'],['\\[','\\]']] },
+  svg: { fontCache: 'global' }
+};
+</script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mathjax/3.2.2/es5/tex-svg.min.js" crossorigin="anonymous"></script>
+
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&family=Fira+Mono:wght@400;700&display=swap');
+
+*{margin:0;padding:0;box-sizing:border-box;}
+
+body{
+  font-family:'Nunito',sans-serif;
+  background:#f0f4ff;
+  padding:24px 16px;
+  line-height:1.75;
+  color:#222;
+}
+
+.container{
+  max-width:960px;
+  margin:0 auto;
+  background:#fff;
+  border-radius:24px;
+  box-shadow:0 16px 48px rgba(15,52,96,.14);
+  overflow:hidden;
+}
+
+/* ── HEADER ── */
+.doc-header{
+  background:linear-gradient(120deg,#0f3460 0%,#1a6eb5 60%,#4facfe 100%);
+  padding:40px 48px 32px;
+  color:white;
+}
+.doc-header h1{
+  font-size:2.4em;
+  font-weight:900;
+  letter-spacing:-0.5px;
+  margin-bottom:6px;
+}
+.doc-header .sub{
+  font-size:1.05em;
+  opacity:.85;
+  font-weight:600;
+}
+.doc-header .chips{
+  margin-top:14px;
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+.chip{
+  background:rgba(255,255,255,0.2);
+  border:1px solid rgba(255,255,255,.35);
+  border-radius:20px;
+  padding:3px 14px;
+  font-size:.82em;
+  font-weight:700;
+}
+
+/* ── MAIN CONTENT PADDING ── */
+.inner{padding:40px 48px;}
+@media(max-width:600px){.inner{padding:24px 20px;} .doc-header{padding:28px 24px 22px;}}
+
+/* ── SECTION TITLE ── */
+.seccio{
+  display:flex;
+  align-items:center;
+  gap:12px;
+  margin:48px 0 24px;
+  padding-bottom:10px;
+  border-bottom:3px solid #0f3460;
+}
+.seccio-icon{
+  width:36px;height:36px;flex-shrink:0;
+}
+.seccio h2{
+  font-size:1.35em;
+  font-weight:900;
+  color:#0f3460;
+  letter-spacing:-.3px;
+}
+
+/* ── TEORIA CARDS ── */
+.teoria-grid{
+  display:grid;
+  grid-template-columns:1fr;
+  gap:28px;
+}
+
+.teoria-card{
+  border-radius:16px;
+  overflow:hidden;
+  box-shadow:0 6px 20px rgba(0,0,0,.10);
+}
+.teoria-card .tc-head{
+  padding:16px 22px 12px;
+  display:flex;
+  align-items:center;
+  gap:12px;
+}
+.tc-head .tc-icon{width:44px;height:44px;flex-shrink:0;}
+.tc-head h3{font-size:1.2em;font-weight:900;color:white;}
+.tc-head .tc-sub{font-size:.85em;color:rgba(255,255,255,.8);font-weight:600;}
+
+.tc-body{
+  background:white;
+  padding:22px 24px;
+}
+
+/* Colour themes */
+.tc-mitjana .tc-head{background:linear-gradient(120deg,#0f3460,#1a6eb5);}
+.tc-mediana .tc-head{background:linear-gradient(120deg,#7b2d8b,#c850c0);}
+.tc-moda    .tc-head{background:linear-gradient(120deg,#b5451b,#f77f00);}
+
+.formula-box{
+  background:#eef4ff;
+  border-left:4px solid #1a6eb5;
+  border-radius:0 10px 10px 0;
+  padding:12px 16px;
+  margin:14px 0;
+  font-size:1em;
+}
+.formula-box.purple{background:#f5eeff;border-color:#9b59b6;}
+.formula-box.orange{background:#fff6e8;border-color:#f77f00;}
+
+.pas{
+  display:flex;
+  gap:12px;
+  align-items:flex-start;
+  margin:10px 0;
+}
+.pas-num{
+  background:#0f3460;
+  color:white;
+  border-radius:50%;
+  width:26px;height:26px;
+  flex-shrink:0;
+  display:flex;align-items:center;justify-content:center;
+  font-size:.82em;font-weight:800;
+  margin-top:2px;
+}
+.pas-num.purple{background:#7b2d8b;}
+.pas-num.orange{background:#b5451b;}
+.pas-text{flex:1;font-size:.97em;}
+
+/* worked example table inside teoria */
+.ex-table{
+  width:100%;
+  border-collapse:collapse;
+  margin:14px 0;
+  font-size:.93em;
+}
+.ex-table th{
+  background:#0f3460;
+  color:white;
+  padding:8px 10px;
+  text-align:center;
+}
+.ex-table.purple th{background:#7b2d8b;}
+.ex-table.orange th{background:#b5451b;}
+.ex-table td{
+  padding:7px 10px;
+  text-align:center;
+  border-bottom:1px solid #e8e8e8;
+}
+.ex-table tr:last-child td{border-bottom:none;}
+.ex-table tr.highlight td{background:#eef4ff;font-weight:700;}
+.ex-table tr.highlight-p td{background:#f5eeff;font-weight:700;}
+.ex-table tr.highlight-o td{background:#fff6e8;font-weight:700;}
+
+.result-box{
+  background:#0f3460;
+  color:white;
+  border-radius:10px;
+  padding:10px 16px;
+  margin-top:12px;
+  font-weight:700;
+  font-size:1em;
+  display:inline-block;
+}
+.result-box.purple{background:#7b2d8b;}
+.result-box.orange{background:#b5451b;}
+
+.tip{
+  background:#fffbea;
+  border-left:4px solid #f9c80e;
+  border-radius:0 8px 8px 0;
+  padding:10px 14px;
+  font-size:.92em;
+  color:#555;
+  margin-top:12px;
+}
+
+.example-header{
+  font-weight:800;
+  color:#0f3460;
+  font-size:.97em;
+  margin:14px 0 4px;
+  text-transform:uppercase;
+  letter-spacing:.5px;
+}
+.example-header.purple{color:#7b2d8b;}
+.example-header.orange{color:#b5451b;}
+
+/* inline emphasis */
+.val-taronja{color:#b5451b;font-weight:800;}
+.val-blau{color:#0f3460;font-weight:800;}
+.val-morat{color:#7b2d8b;font-weight:800;}
+
+/* number line visual for mediana */
+.num-line-wrap{overflow-x:auto;padding:8px 0;}
+.num-line{
+  display:flex;
+  align-items:center;
+  gap:0;
+  min-width:fit-content;
+  padding:0 8px;
+}
+.nl-num{
+  width:36px;height:36px;
+  border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:.95em;
+  border:2px solid #ccc;
+  background:#f7f7f7;
+  flex-shrink:0;
+}
+.nl-num.center{background:#7b2d8b;color:white;border-color:#7b2d8b;transform:scale(1.2);}
+.nl-num.mid1{background:#c3a0d8;color:white;border-color:#9b59b6;}
+.nl-num.mid2{background:#c3a0d8;color:white;border-color:#9b59b6;}
+.nl-arrow{width:18px;height:2px;background:#ddd;flex-shrink:0;}
+
+/* ══════════════════════════════════════════
+   EXERCISE CARDS
+══════════════════════════════════════════ */
+.exercici{
+  border-radius:18px;
+  margin-bottom:40px;
+  overflow:hidden;
+  box-shadow:0 8px 28px rgba(0,0,0,.13);
+}
+
+.ex-header{
+  padding:20px 26px 16px;
+  display:flex;
+  align-items:flex-start;
+  gap:18px;
+}
+.ex-illustration{flex-shrink:0;}
+.ex-header-text{flex:1;}
+.ex-badge{
+  display:inline-block;
+  background:rgba(255,255,255,.28);
+  color:white;
+  border-radius:20px;
+  padding:2px 12px;
+  font-size:.78em;
+  font-weight:800;
+  letter-spacing:.6px;
+  margin-bottom:6px;
+}
+.ex-header h3{
+  color:white;
+  font-size:1.3em;
+  font-weight:900;
+  text-shadow:0 1px 3px rgba(0,0,0,.25);
+}
+
+/* ex colour themes */
+.ex-c1 .ex-header{background:linear-gradient(120deg,#0f3460,#1a6eb5);}
+.ex-c2 .ex-header{background:linear-gradient(120deg,#7b2d8b,#c850c0);}
+.ex-c3 .ex-header{background:linear-gradient(120deg,#0a7e6a,#00c9a7);}
+.ex-c4 .ex-header{background:linear-gradient(120deg,#b5451b,#f77f00);}
+.ex-c5 .ex-header{background:linear-gradient(120deg,#1a5276,#2e86ab);}
+.ex-c6 .ex-header{background:linear-gradient(120deg,#145a32,#27ae60);}
+.ex-c7 .ex-header{background:linear-gradient(120deg,#6d3b47,#c0392b);}
+
+.ex-body{
+  background:white;
+  padding:24px 26px;
+}
+
+.context-box{
+  background:#f7f9ff;
+  border-left:5px solid #1a6eb5;
+  border-radius:0 10px 10px 0;
+  padding:14px 18px;
+  margin-bottom:14px;
+  color:#333;
+  font-size:1em;
+}
+.context-box.green{border-color:#0a7e6a;background:#f0fff8;}
+.context-box.orange{border-color:#f77f00;background:#fff8f0;}
+.context-box.purple{border-color:#7b2d8b;background:#faf0ff;}
+.context-box.teal{border-color:#2e86ab;background:#f0f8ff;}
+.context-box.red{border-color:#c0392b;background:#fff5f5;}
+
+.dades-box{
+  background:#fefce8;
+  border:1.5px dashed #d4b800;
+  border-radius:10px;
+  padding:12px 18px;
+  margin-bottom:14px;
+  font-weight:700;
+  font-size:1em;
+  color:#333;
+}
+
+/* exercise tables */
+.data-table{
+  width:100%;
+  border-collapse:collapse;
+  background:white;
+  border-radius:10px;
+  overflow:hidden;
+  margin-bottom:14px;
+  box-shadow:0 3px 10px rgba(0,0,0,.08);
+}
+.data-table th{
+  background:#0f3460;
+  color:white;
+  padding:10px 8px;
+  text-align:center;
+  font-size:.9em;
+  font-weight:700;
+}
+.data-table td{
+  padding:9px 8px;
+  text-align:center;
+  border-bottom:1px solid #eee;
+  font-size:.92em;
+  color:#333;
+}
+td.buit{background:#fffde7;color:#bbb;font-style:italic;}
+tr:last-child td{border-bottom:none;}
+
+/* questions */
+.preguntes{
+  background:#f7f9ff;
+  border-radius:12px;
+  padding:18px 20px;
+  margin-top:8px;
+}
+.preguntes h4{
+  color:#0f3460;
+  font-weight:900;
+  margin-bottom:12px;
+  font-size:1em;
+  text-transform:uppercase;
+  letter-spacing:.4px;
+}
+.preguntes ol{margin-left:20px;}
+.preguntes li{margin-bottom:8px;font-size:.97em;line-height:1.55;}
+
+.competencia-li{
+  list-style:none !important;
+  margin-left:-20px;
+  background:#fff8e1;
+  border-left:4px solid #ff9800;
+  border-radius:0 8px 8px 0;
+  padding:10px 14px;
+  font-size:.93em;
+  color:#555;
+  margin-top:6px;
+}
+
+/* Chart wrappers */
+.chart-wrapper{
+  background:#f7f9ff;
+  border-radius:12px;
+  padding:20px;
+  margin-bottom:14px;
+}
+.chart-title{
+  text-align:center;
+  font-weight:800;
+  color:#0f3460;
+  margin-bottom:16px;
+  font-size:.97em;
+}
+
+/* bar chart */
+.bar-chart-area{
+  display:flex;
+  align-items:flex-end;
+  height:220px;
+  border-left:3px solid #555;
+  border-bottom:3px solid #555;
+  padding:10px 10px 0 44px;
+  position:relative;
+  margin-bottom:8px;
+}
+.y-labels{
+  position:absolute;left:0;top:0;
+  height:100%;
+  display:flex;flex-direction:column;justify-content:space-between;
+  padding-bottom:2px;
+}
+.y-labels span{font-size:.72em;color:#666;text-align:right;width:36px;line-height:1;}
+.bar-col{display:flex;flex-direction:column;align-items:center;flex:1;margin:0 3px;}
+.bar{width:62%;border-radius:5px 5px 0 0;position:relative;transition:opacity .2s;}
+.bar:hover{opacity:.8;}
+.bar-val{position:absolute;top:-22px;width:100%;text-align:center;font-size:.78em;font-weight:800;color:#333;}
+.bar-lbl{margin-top:5px;font-size:.78em;font-weight:700;color:#444;text-align:center;}
+
+/* histogram */
+.hist-chart-area{
+  display:flex;
+  align-items:flex-end;
+  height:220px;
+  border-left:3px solid #555;
+  border-bottom:3px solid #555;
+  padding:10px 10px 0 44px;
+  position:relative;
+  margin-bottom:8px;
+}
+.hist-col{display:flex;flex-direction:column;align-items:stretch;flex:1;margin:0;justify-content:flex-end;}
+.hist-bar{border:1px solid white;position:relative;flex-shrink:0;}
+.hist-lbl{margin-top:5px;font-size:.72em;font-weight:700;color:#444;text-align:center;flex-shrink:0;}
+
+/* pie */
+.pie-container{display:flex;align-items:center;justify-content:center;gap:28px;flex-wrap:wrap;}
+.legend{display:flex;flex-direction:column;gap:7px;}
+.legend-item{display:flex;align-items:center;gap:8px;font-size:.88em;color:#333;}
+.legend-color{width:17px;height:17px;border-radius:3px;flex-shrink:0;}
+
+/* recall note in exercises */
+.recorda{
+  background:#e8f4fd;
+  border:1px solid #90caf9;
+  border-radius:9px;
+  padding:10px 14px;
+  margin-bottom:12px;
+  font-size:.9em;
+  color:#1565c0;
+}
+
+/* footer */
+.doc-footer{
+  text-align:center;
+  padding:22px;
+  color:#aaa;
+  font-size:.85em;
+  border-top:1px solid #eee;
+}
+</style>
+</head>
+<body>
+<div class="container">
+
+<!-- ════════════════════════════════════
+     HEADER
+════════════════════════════════════ -->
+<div class="doc-header">
+  <h1>📊 Estadística</h1>
+  <div class="sub">3r d'ESO</div>
+  <div class="chips">
+    <span class="chip">Taules de freqüències</span>
+    <span class="chip">Gràfics estadístics</span>
+    <span class="chip">Mitjana · Mediana · Moda</span>
+  </div>
+</div>
+
+<div class="inner">
+
+<!-- ════════════════════════════════════
+     SECCIÓ TEÒRICA
+════════════════════════════════════ -->
+<div class="seccio">
+  <svg class="seccio-icon" viewBox="0 0 36 36">
+    <rect width="36" height="36" rx="8" fill="#0f3460"/>
+    <text x="18" y="25" text-anchor="middle" font-size="20" fill="white">📐</text>
+  </svg>
+  <h2>Mesures de centralització: Mitjana, Mediana i Moda</h2>
+</div>
+
+<div class="teoria-grid">
+
+  <!-- ── MITJANA ── -->
+  <div class="teoria-card tc-mitjana">
+    <div class="tc-head">
+      <svg class="tc-icon" viewBox="0 0 44 44">
+        <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,.15)"/>
+        <text x="22" y="30" text-anchor="middle" font-size="24" fill="white">x̄</text>
+      </svg>
+      <div>
+        <h3>La Mitjana aritmètica</h3>
+        <div class="tc-sub">Suma tots els valors i divideix pel nombre de dades</div>
+      </div>
+    </div>
+    <div class="tc-body">
+
+      <p>La <strong>mitjana</strong> (o <em>mitjana aritmètica</em>) és el valor que obtenim repartint la suma de totes les dades entre el nombre total de dades. La representem com $\bar{x}$.</p>
+
+      <div class="formula-box">
+        $$\bar{x} = \frac{\displaystyle\sum_{i=1}^{n} x_i}{N} = \frac{x_1 + x_2 + \cdots + x_N}{N}$$
+        <div style="font-size:.88em;margin-top:6px;color:#555;">On <strong>N</strong> és el nombre total de dades i $x_i$ cadascun dels valors.</div>
+      </div>
+
+      <div class="example-header">📝 Exemple resolt</div>
+      <p style="font-size:.95em;margin-bottom:10px;">Les edats de 6 amics són: <span class="val-blau">14, 15, 14, 16, 13, 14</span></p>
+
+      <div class="pas">
+        <div class="pas-num">1</div>
+        <div class="pas-text"><strong>Suma tots els valors:</strong><br>
+        $14 + 15 + 14 + 16 + 13 + 14 = 86$</div>
+      </div>
+      <div class="pas">
+        <div class="pas-num">2</div>
+        <div class="pas-text"><strong>Divideix pel nombre de dades</strong> $N = 6$:<br>
+        $$\bar{x} = \frac{86}{6} = 14{,}33 \text{ anys}$$</div>
+      </div>
+
+      <div class="result-box">✓ Mitjana = 14,33 anys</div>
+
+      <div class="tip">⚠️ La mitjana és molt sensible als <strong>valors extrems</strong>. Si un amic tingués 40 anys, la mitjana pujaria molt però no representaria bé el grup!</div>
+
+      <div style="height:16px;"></div>
+      <div class="example-header">📝 Exemple amb taula de freqüències</div>
+      <p style="font-size:.95em;margin-bottom:10px;">Quan les dades estan en una taula, usem la columna $f_i$ (freqüència absoluta) per calcular la suma de forma eficient:</p>
+
+      <div class="formula-box">
+        $$\bar{x} = \frac{\displaystyle\sum_{i} f_i \cdot x_i}{N}$$
+      </div>
+
+      <p style="font-size:.93em;margin-bottom:8px;">Exemple: Nombre de llibres llegits per 20 alumnes:</p>
+      <table class="ex-table">
+        <thead><tr><th>$x_i$ (llibres)</th><th>$f_i$ (alumnes)</th><th>$f_i \cdot x_i$</th></tr></thead>
+        <tbody>
+          <tr><td>1</td><td>4</td><td>4</td></tr>
+          <tr><td>2</td><td>8</td><td>16</td></tr>
+          <tr><td>3</td><td>5</td><td>15</td></tr>
+          <tr><td>4</td><td>3</td><td>12</td></tr>
+          <tr class="highlight"><td><strong>TOTAL</strong></td><td><strong>20</strong></td><td><strong>47</strong></td></tr>
+        </tbody>
+      </table>
+      $$\bar{x} = \frac{47}{20} = \mathbf{2{,}35 \text{ llibres}}$$
+    </div>
+  </div>
+
+  <!-- ── MEDIANA ── -->
+  <div class="teoria-card tc-mediana">
+    <div class="tc-head">
+      <svg class="tc-icon" viewBox="0 0 44 44">
+        <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,.15)"/>
+        <text x="22" y="29" text-anchor="middle" font-size="18" font-weight="bold" fill="white">Me</text>
+      </svg>
+      <div>
+        <h3>La Mediana</h3>
+        <div class="tc-sub">El valor central quan les dades estan ordenades</div>
+      </div>
+    </div>
+    <div class="tc-body">
+
+      <p>La <strong>mediana</strong> ($M_e$) és el valor que deixa la meitat de les dades per sobre i l'altra meitat per sota, un cop ordenades de menor a major.</p>
+
+      <div class="formula-box purple">
+        Per trobar la posició de la mediana:<br><br>
+        <strong>Si $N$ és <em>senar</em>:</strong> la mediana és la dada de la posició $\dfrac{N+1}{2}$<br><br>
+        <strong>Si $N$ és <em>parell</em>:</strong> la mediana és la dada de la posició $\dfrac{N}{2}$ (o la de $\dfrac{N}{2}+1$, si cauen en valors iguals, n'agafem qualsevol)
+      </div>
+
+      <p style="font-size:.93em;margin-bottom:10px;">Amb la taula de freqüències: busca a la columna $F_i$ (freqüència absoluta <em>acumulada</em>) el primer valor que <strong>iguala o supera</strong> la posició buscada.</p>
+
+      <!-- ── CAS N SENAR ── -->
+      <div class="example-header purple">📝 Cas 1: N senar (N = 9)</div>
+      <p style="font-size:.93em;margin-bottom:6px;">Dades: <span class="val-morat">3, 5, 5, 7, <strong>8</strong>, 9, 10, 11, 14</span></p>
+
+      <div class="pas">
+        <div class="pas-num purple">1</div>
+        <div class="pas-text">$N = 9$ → posició $= \dfrac{9+1}{2} = \mathbf{5}$</div>
+      </div>
+      <div class="pas">
+        <div class="pas-num purple">2</div>
+        <div class="pas-text">La 5a dada en la llista ordenada és <span class="val-morat"><strong>8</strong></span>.</div>
+      </div>
+
+      <div class="num-line-wrap" style="margin:10px 0;">
+        <div class="num-line">
+          <div class="nl-num">3</div><div class="nl-arrow"></div>
+          <div class="nl-num">5</div><div class="nl-arrow"></div>
+          <div class="nl-num">5</div><div class="nl-arrow"></div>
+          <div class="nl-num">7</div><div class="nl-arrow"></div>
+          <div class="nl-num center">8</div><div class="nl-arrow"></div>
+          <div class="nl-num">9</div><div class="nl-arrow"></div>
+          <div class="nl-num">10</div><div class="nl-arrow"></div>
+          <div class="nl-num">11</div><div class="nl-arrow"></div>
+          <div class="nl-num">14</div>
+        </div>
+      </div>
+
+      <table class="ex-table purple">
+        <thead><tr><th>$x_i$</th><th>$f_i$</th><th>$F_i$ (acum.)</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>1</td><td>1</td></tr>
+          <tr><td>5</td><td>2</td><td>3</td></tr>
+          <tr><td>7</td><td>1</td><td>4</td></tr>
+          <tr class="highlight-p"><td><strong>8</strong></td><td>1</td><td><strong>5 ← 1r que ≥ 5</strong></td></tr>
+          <tr><td>9</td><td>1</td><td>6</td></tr>
+          <tr><td>10</td><td>1</td><td>7</td></tr>
+          <tr><td>11</td><td>1</td><td>8</td></tr>
+          <tr><td>14</td><td>1</td><td>9</td></tr>
+        </tbody>
+      </table>
+      <div class="result-box purple">✓ Mediana = 8</div>
+
+      <!-- ── CAS N PARELL ── -->
+      <div class="example-header purple" style="margin-top:18px;">📝 Cas 2: N parell (N = 8)</div>
+      <p style="font-size:.93em;margin-bottom:6px;">Dades: <span class="val-morat">2, 4, 6, <strong>7, 9</strong>, 11, 13, 15</span></p>
+
+      <div class="pas">
+        <div class="pas-num purple">1</div>
+        <div class="pas-text">$N = 8$ → posicions centrals: $\dfrac{8}{2} = 4$ i $\dfrac{8}{2}+1 = 5$</div>
+      </div>
+      <div class="pas">
+        <div class="pas-num purple">2</div>
+        <div class="pas-text">La 4a dada és <span class="val-morat"><strong>7</strong></span> i la 5a és <span class="val-morat"><strong>9</strong></span>. Com que són valors <em>diferents</em>:
+        $$M_e = \frac{7+9}{2} = \mathbf{8}$$</div>
+      </div>
+
+      <div class="num-line-wrap" style="margin:10px 0;">
+        <div class="num-line">
+          <div class="nl-num">2</div><div class="nl-arrow"></div>
+          <div class="nl-num">4</div><div class="nl-arrow"></div>
+          <div class="nl-num">6</div><div class="nl-arrow"></div>
+          <div class="nl-num mid1">7</div><div class="nl-arrow"></div>
+          <div class="nl-num mid2">9</div><div class="nl-arrow"></div>
+          <div class="nl-num">11</div><div class="nl-arrow"></div>
+          <div class="nl-num">13</div><div class="nl-arrow"></div>
+          <div class="nl-num">15</div>
+        </div>
+      </div>
+
+      <div class="tip">💡 Si els dos valors centrals fossin iguals (per exemple, 7 i 7), la mediana seria directament 7, sense fer la mitjana.</div>
+
+      <div class="result-box purple" style="margin-top:10px;">✓ Mediana = 8</div>
+    </div>
+  </div>
+
+  <!-- ── MODA ── -->
+  <div class="teoria-card tc-moda">
+    <div class="tc-head">
+      <svg class="tc-icon" viewBox="0 0 44 44">
+        <circle cx="22" cy="22" r="22" fill="rgba(255,255,255,.15)"/>
+        <text x="22" y="29" text-anchor="middle" font-size="18" font-weight="bold" fill="white">Mo</text>
+      </svg>
+      <div>
+        <h3>La Moda</h3>
+        <div class="tc-sub">El valor (o valors) que apareix amb més freqüència</div>
+      </div>
+    </div>
+    <div class="tc-body">
+
+      <p>La <strong>moda</strong> ($M_o$) és el valor (o valors) que apareix un nombre més gran de vegades en el conjunt de dades. Es llegeix directament de la taula: és el valor amb la $f_i$ més alta.</p>
+
+      <div class="formula-box orange">
+        $M_o$ = valor(s) amb la <strong>freqüència absoluta ($f_i$) màxima</strong>
+      </div>
+
+      <!-- Exemple unimodal -->
+      <div class="example-header orange">📝 Exemple 1: Distribució unimodal (una sola moda)</div>
+      <p style="font-size:.93em;margin-bottom:8px;">Puntuació en un joc de 15 partides: <span class="val-taronja">3, 5, 7, 5, 9, 5, 3, 7, 5, 3, 5, 9, 7, 5, 3</span></p>
+
+      <table class="ex-table orange">
+        <thead><tr><th>Puntuació $x_i$</th><th>$f_i$</th></tr></thead>
+        <tbody>
+          <tr><td>3</td><td>4</td></tr>
+          <tr class="highlight-o"><td><strong>5</strong></td><td><strong>6 ← màxim!</strong></td></tr>
+          <tr><td>7</td><td>3</td></tr>
+          <tr><td>9</td><td>2</td></tr>
+        </tbody>
+      </table>
+      <div class="result-box orange">✓ Moda = 5 (apareix 6 vegades)</div>
+      <p style="font-size:.88em;color:#888;margin-top:6px;">→ Distribució <strong>unimodal</strong>: hi ha un sol valor amb freqüència màxima.</p>
+
+      <!-- Exemple bimodal -->
+      <div class="example-header orange" style="margin-top:18px;">📝 Exemple 2: Distribució bimodal (dues modes)</div>
+      <p style="font-size:.93em;margin-bottom:8px;">Color preferit de 20 alumnes:</p>
+
+      <table class="ex-table orange">
+        <thead><tr><th>Color $x_i$</th><th>$f_i$</th></tr></thead>
+        <tbody>
+          <tr class="highlight-o"><td><strong>Blau</strong></td><td><strong>7 ← màxim!</strong></td></tr>
+          <tr><td>Verd</td><td>3</td></tr>
+          <tr class="highlight-o"><td><strong>Vermell</strong></td><td><strong>7 ← màxim!</strong></td></tr>
+          <tr><td>Groc</td><td>3</td></tr>
+        </tbody>
+      </table>
+      <div class="result-box orange">✓ Modes = Blau i Vermell (les dues apareixen 7 vegades)</div>
+      <p style="font-size:.88em;color:#888;margin-top:6px;">→ Distribució <strong>bimodal</strong>: hi ha dos valors amb la mateixa freqüència màxima.</p>
+
+      <div class="tip">💡 A diferència de la mitjana i la mediana, la moda es pot usar tant amb dades numèriques com amb dades qualitatives (colors, esports, noms…).</div>
+    </div>
+  </div>
+
+</div><!-- /teoria-grid -->
+
+
+<!-- ════════════════════════════════════
+     SECCIÓ 1: MESURES CENTRALITZACIÓ
+════════════════════════════════════ -->
+<div class="seccio">
+  <svg class="seccio-icon" viewBox="0 0 36 36">
+    <rect width="36" height="36" rx="8" fill="#0f3460"/>
+    <text x="18" y="25" text-anchor="middle" font-size="18" fill="white">✏️</text>
+  </svg>
+  <h2>Mesures de centralització: Mitjana, Mediana i Moda</h2>
+</div>
+
+<!-- EXERCICI 1 -->
+<div class="exercici ex-c1">
+  <div class="ex-header">
+    <!-- SVG: libreta de notas -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <rect x="12" y="8" width="48" height="56" rx="5" fill="white" opacity=".9"/>
+        <rect x="12" y="8" width="10" height="56" rx="5" fill="rgba(255,255,255,.5)"/>
+        <line x1="26" y1="24" x2="52" y2="24" stroke="#1a6eb5" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="26" y1="33" x2="52" y2="33" stroke="#1a6eb5" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="26" y1="42" x2="44" y2="42" stroke="#1a6eb5" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="53" cy="52" r="10" fill="#f9c80e"/>
+        <text x="53" y="57" text-anchor="middle" font-size="13" font-weight="bold" fill="#333">10</text>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 1</div>
+      <h3>Les notes de matemàtiques</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box">
+      En un control de matemàtiques, els alumnes de 3r B han tret les notes següents (sobre 10):
+    </div>
+    <div class="dades-box">7, 5, 8, 6, 9, 5, 7, 8, 4, 7, 6, 8, 9, 5, 7</div>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Ordena les dades de menor a major.</li>
+        <li>Calcula la <strong>mitjana</strong> de les notes. Usa la fórmula $\bar{x} = \dfrac{\sum x_i}{N}$.</li>
+        <li>Com que $N = 15$ (senar), la <strong>mediana</strong> és la dada de la posició $\dfrac{N+1}{2}$. Quina és?</li>
+        <li>Quina és la <strong>moda</strong>? La distribució és unimodal o bimodal?</li>
+        <li>Quin dels tres valors creus que representa millor el nivell general de la classe? Raona la resposta.</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- EXERCICI 2 -->
+<div class="exercici ex-c2">
+  <div class="ex-header">
+    <!-- SVG: termòmetre i sol -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="20" r="12" fill="#fee140" opacity=".9"/>
+        <line x1="36" y1="4" x2="36" y2="10" stroke="#fee140" stroke-width="3" stroke-linecap="round"/>
+        <line x1="52" y1="8" x2="48" y2="12" stroke="#fee140" stroke-width="3" stroke-linecap="round"/>
+        <line x1="58" y1="20" x2="52" y2="20" stroke="#fee140" stroke-width="3" stroke-linecap="round"/>
+        <line x1="20" y1="8" x2="24" y2="12" stroke="#fee140" stroke-width="3" stroke-linecap="round"/>
+        <line x1="14" y1="20" x2="20" y2="20" stroke="#fee140" stroke-width="3" stroke-linecap="round"/>
+        <rect x="32" y="36" width="8" height="28" rx="4" fill="white" opacity=".9"/>
+        <rect x="34" y="40" width="4" height="20" rx="2" fill="#f5576c"/>
+        <circle cx="36" cy="63" r="5" fill="#f5576c"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 2</div>
+      <h3>Temperatura màxima setmanal</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box purple">
+      Les temperatures màximes registrades a Reus durant una setmana de març van ser (en °C):
+    </div>
+    <table class="data-table">
+      <thead><tr><th>Dl.</th><th>Dt.</th><th>Dc.</th><th>Dj.</th><th>Dv.</th><th>Ds.</th><th>Dg.</th></tr></thead>
+      <tbody><tr><td>14</td><td>16</td><td>13</td><td>18</td><td>16</td><td>20</td><td>16</td></tr></tbody>
+    </table>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Calcula la <strong>temperatura mitjana</strong> de la setmana.</li>
+        <li>Ordena les temperatures. Com que $N = 7$ (senar), calcula la <strong>mediana</strong>.</li>
+        <li>Quina temperatura és la <strong>moda</strong>? Quantes vegades apareix? La distribució és unimodal?</li>
+        <li>Un diari diu que "la temperatura típica de la setmana va ser de 16 °C". Quin estadístic s'ha fet servir? Estàs d'acord?</li>
+        <li>Si el diumenge la temperatura hagués estat 5 °C en lloc de 16 °C, quin dels tres valors (mitjana, mediana, moda) hauria canviat més? Per què?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SECCIÓ 2: TAULA DE FREQÜÈNCIES
+════════════════════════════════════ -->
+<div class="seccio">
+  <svg class="seccio-icon" viewBox="0 0 36 36">
+    <rect width="36" height="36" rx="8" fill="#0a7e6a"/>
+    <text x="18" y="25" text-anchor="middle" font-size="18" fill="white">📋</text>
+  </svg>
+  <h2>Taula de freqüències i mesures estadístiques</h2>
+</div>
+
+<!-- EXERCICI 3 -->
+<div class="exercici ex-c3">
+  <div class="ex-header">
+    <!-- SVG: família (siluetes) -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="22" cy="24" r="8" fill="white" opacity=".9"/>
+        <rect x="16" y="34" width="12" height="22" rx="4" fill="white" opacity=".9"/>
+        <circle cx="50" cy="24" r="8" fill="white" opacity=".9"/>
+        <rect x="44" y="34" width="12" height="22" rx="4" fill="white" opacity=".9"/>
+        <circle cx="36" cy="36" r="6" fill="rgba(255,255,255,.7)"/>
+        <rect x="31" y="44" width="10" height="14" rx="3" fill="rgba(255,255,255,.7)"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 3</div>
+      <h3>Nombre de germans</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box green">
+      Es va preguntar a 30 alumnes de 3r ESO quants germans o germanes tenien. Les respostes van ser:
+    </div>
+    <div class="dades-box">0, 1, 2, 1, 0, 3, 1, 2, 1, 0, 1, 2, 3, 1, 0, 2, 1, 1, 0, 2, 1, 3, 0, 1, 2, 1, 0, 1, 2, 1</div>
+    <p style="font-size:.93em;margin-bottom:10px;color:#555;">Completa la taula de freqüències:</p>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>$x_i$ (germans)</th>
+          <th>$f_i$ (freqüència abs.)</th>
+          <th>$h_i$ (freq. rel.)</th>
+          <th>$h_i$ (%)</th>
+          <th>$F_i$ (freq. abs. acum.)</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>0</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>1</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>2</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>3</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td><td>—</td></tr>
+      </tbody>
+    </table>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Completa la taula de freqüències.</li>
+        <li>Calcula la <strong>mitjana</strong> usant: $\bar{x} = \dfrac{\sum f_i \cdot x_i}{N}$</li>
+        <li>Quina és la <strong>moda</strong>? Té sentit parlar de moda en aquest context?</li>
+        <li>$N = 30$ (parell) → les posicions centrals són $\frac{30}{2} = 15$ i $\frac{30}{2}+1 = 16$. Usa la columna $F_i$ per trobar la <strong>mediana</strong>.</li>
+        <li class="competencia-li">🧠 <strong>Competències bàsiques:</strong> El 2023, l'INE va publicar que la família espanyola té de mitjana 1,3 fills. Compara aquest valor amb la mitjana obtinguda. Creus que la mostra de la classe és representativa de la realitat espanyola? Quines limitacions pot tenir aquesta enquesta?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SECCIÓ 3: DADES AGRUPADES
+════════════════════════════════════ -->
+<div class="seccio">
+  <svg class="seccio-icon" viewBox="0 0 36 36">
+    <rect width="36" height="36" rx="8" fill="#b5451b"/>
+    <text x="18" y="25" text-anchor="middle" font-size="18" fill="white">📦</text>
+  </svg>
+  <h2>Dades agrupades en intervals</h2>
+</div>
+
+<!-- EXERCICI 4 -->
+<div class="exercici ex-c4">
+  <div class="ex-header">
+    <!-- SVG: rellotge i llibres -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="38" r="22" fill="white" opacity=".9"/>
+        <circle cx="36" cy="38" r="18" fill="none" stroke="#f77f00" stroke-width="3"/>
+        <line x1="36" y1="38" x2="36" y2="24" stroke="#333" stroke-width="2.5" stroke-linecap="round"/>
+        <line x1="36" y1="38" x2="46" y2="38" stroke="#f77f00" stroke-width="2.5" stroke-linecap="round"/>
+        <circle cx="36" cy="38" r="2.5" fill="#333"/>
+        <rect x="14" y="10" width="9" height="14" rx="2" fill="rgba(255,255,255,.7)"/>
+        <rect x="25" y="8" width="9" height="16" rx="2" fill="rgba(255,255,255,.85)"/>
+        <rect x="36" y="10" width="9" height="14" rx="2" fill="rgba(255,255,255,.7)"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 4</div>
+      <h3>Temps d'estudi diari</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box orange">
+      Es va preguntar a 40 alumnes quants minuts estudien cada dia. Els resultats, agrupats en intervals:
+    </div>
+    <table class="data-table">
+      <thead>
+        <tr>
+          <th>Interval (min)</th>
+          <th>Marca de classe $m_i$</th>
+          <th>$f_i$</th>
+          <th>$h_i$ (%)</th>
+          <th>$F_i$ (acum.)</th>
+          <th>$f_i \cdot m_i$</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>[0, 30)</td><td class="buit">___</td><td>4</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>[30, 60)</td><td class="buit">___</td><td>10</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>[60, 90)</td><td class="buit">___</td><td>14</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>[90, 120)</td><td class="buit">___</td><td>8</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td>[120, 150)</td><td class="buit">___</td><td>4</td><td class="buit">___</td><td class="buit">___</td><td class="buit">___</td></tr>
+        <tr><td><strong>TOTAL</strong></td><td>—</td><td><strong>40</strong></td><td class="buit">___</td><td>—</td><td class="buit">___</td></tr>
+      </tbody>
+    </table>
+    <div class="recorda">
+      <strong>Recorda:</strong>
+      $m_i = \dfrac{\text{extrem inf.} + \text{extrem sup.}}{2}$ &nbsp;·&nbsp;
+      $\bar{x} \approx \dfrac{\sum f_i \cdot m_i}{N}$ &nbsp;·&nbsp;
+      Interval modal = el de $f_i$ màxima &nbsp;·&nbsp;
+      Interval medià = el 1r que acumula $F_i \geq \dfrac{N}{2}$
+    </div>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Calcula la <strong>marca de classe</strong> de cada interval i completa la taula.</li>
+        <li>Calcula la <strong>mitjana aproximada</strong>: $\bar{x} \approx \dfrac{\sum f_i \cdot m_i}{N}$</li>
+        <li>Quins són l'<strong>interval modal</strong> i l'<strong>interval medià</strong>? (Posició mediana: $\frac{N}{2} = 20$)</li>
+        <li>Quin percentatge d'alumnes estudia <strong>menys de 60 minuts</strong> al dia?</li>
+        <li class="competencia-li">🧠 <strong>Competències bàsiques:</strong> Diversos estudis recomanen entre 60 i 90 minuts d'estudi diari per a alumnes de 3r ESO. Quants alumnes de la mostra compleixen aquesta recomanació? Quins factors podrien influir en el temps d'estudi?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<!-- ════════════════════════════════════
+     SECCIÓ 4: GRÀFICS ESTADÍSTICS
+════════════════════════════════════ -->
+<div class="seccio">
+  <svg class="seccio-icon" viewBox="0 0 36 36">
+    <rect width="36" height="36" rx="8" fill="#1a5276"/>
+    <text x="18" y="25" text-anchor="middle" font-size="18" fill="white">📈</text>
+  </svg>
+  <h2>Interpretació de gràfics estadístics</h2>
+</div>
+
+<!-- EXERCICI 5: DIAGRAMA DE BARRES -->
+<div class="exercici ex-c5">
+  <div class="ex-header">
+    <!-- SVG: pilota i xarxa esport -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="30" r="18" fill="white" opacity=".9"/>
+        <path d="M20,30 Q36,18 52,30" fill="none" stroke="#2e86ab" stroke-width="2.5"/>
+        <path d="M20,30 Q36,42 52,30" fill="none" stroke="#2e86ab" stroke-width="2.5"/>
+        <line x1="36" y1="12" x2="36" y2="48" stroke="#2e86ab" stroke-width="2.5"/>
+        <rect x="12" y="52" width="8" height="14" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="23" y="44" width="8" height="22" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="34" y="48" width="8" height="18" rx="2" fill="rgba(255,255,255,.9)"/>
+        <rect x="45" y="55" width="8" height="11" rx="2" fill="rgba(255,255,255,.7)"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 5 · DIAGRAMA DE BARRES</div>
+      <h3>Esport preferit dels alumnes</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box teal">
+      Es va fer una enquesta a 50 alumnes de 3r ESO sobre l'esport que practiquen habitualment:
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">Esport preferit dels alumnes de 3r ESO &nbsp;(n = 50)</div>
+      <!-- SVG bar chart: width=560, height=280, plot area x:60→540, y:20→240 (h=220) -->
+      <svg viewBox="0 0 560 290" style="width:100%;display:block;">
+        <defs>
+          <linearGradient id="g1" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#1a5276"/><stop offset="100%" stop-color="#2e86ab"/></linearGradient>
+          <linearGradient id="g2" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#0a7e6a"/><stop offset="100%" stop-color="#00c9a7"/></linearGradient>
+          <linearGradient id="g3" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#7b2d8b"/><stop offset="100%" stop-color="#c850c0"/></linearGradient>
+          <linearGradient id="g4" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#b5451b"/><stop offset="100%" stop-color="#f77f00"/></linearGradient>
+          <linearGradient id="g5" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stop-color="#6d3b47"/><stop offset="100%" stop-color="#c0392b"/></linearGradient>
+        </defs>
+        <!-- axes -->
+        <line x1="60" y1="20" x2="60" y2="240" stroke="#555" stroke-width="3"/>
+        <line x1="60" y1="240" x2="545" y2="240" stroke="#555" stroke-width="3"/>
+        <!-- y grid lines and labels  (max=20, step=5, h=220px) -->
+        <!-- y=0→240, y=5→185, y=10→130, y=15→75, y=20→20 -->
+        <line x1="58" y1="240" x2="545" y2="240" stroke="#ddd" stroke-width="1"/>
+        <text x="50" y="244" text-anchor="end" font-size="12" fill="#666">0</text>
+        <line x1="58" y1="185" x2="545" y2="185" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="50" y="189" text-anchor="end" font-size="12" fill="#666">5</text>
+        <line x1="58" y1="130" x2="545" y2="130" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="50" y="134" text-anchor="end" font-size="12" fill="#666">10</text>
+        <line x1="58" y1="75" x2="545" y2="75" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="50" y="79" text-anchor="end" font-size="12" fill="#666">15</text>
+        <line x1="58" y1="20" x2="545" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="50" y="24" text-anchor="end" font-size="12" fill="#666">20</text>
+        <!-- bars: each bar width=50, gap=28, start x=80 -->
+        <!-- Futbol 17 → h=17/20*220=187 → y=240-187=53 -->
+        <rect x="80" y="53" width="50" height="187" rx="4" fill="url(#g1)"/>
+        <text x="105" y="46" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">17</text>
+        <text x="105" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Futbol</text>
+        <!-- Bàsquet 12 → h=132 → y=108 -->
+        <rect x="158" y="108" width="50" height="132" rx="4" fill="url(#g2)"/>
+        <text x="183" y="101" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">12</text>
+        <text x="183" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Bàsquet</text>
+        <!-- Natació 8 → h=88 → y=152 -->
+        <rect x="236" y="152" width="50" height="88" rx="4" fill="url(#g3)"/>
+        <text x="261" y="145" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">8</text>
+        <text x="261" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Natació</text>
+        <!-- Tennis 6 → h=66 → y=174 -->
+        <rect x="314" y="174" width="50" height="66" rx="4" fill="url(#g4)"/>
+        <text x="339" y="167" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">6</text>
+        <text x="339" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Tennis</text>
+        <!-- Ciclisme 5 → h=55 → y=185 -->
+        <rect x="392" y="185" width="50" height="55" rx="4" fill="url(#g5)"/>
+        <text x="417" y="178" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">5</text>
+        <text x="417" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Ciclisme</text>
+        <!-- Altres 2 → h=22 → y=218 -->
+        <rect x="470" y="218" width="50" height="22" rx="4" fill="#888"/>
+        <text x="495" y="211" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2</text>
+        <text x="495" y="260" text-anchor="middle" font-size="11" font-weight="700" fill="#444">Altres</text>
+        <!-- y axis label -->
+        <text x="14" y="135" text-anchor="middle" font-size="11" fill="#888" transform="rotate(-90,14,135)">Nombre d'alumnes</text>
+      </svg>
+      <p style="text-align:center;font-size:.8em;color:#888;margin-top:6px;">Eix Y: nombre d'alumnes &nbsp;·&nbsp; Barres <strong>separades</strong> (dades qualitatives / discretes)</p>
+    </div>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Quin és l'esport <strong>modal</strong> (la moda)? Quants alumnes el practiquen?</li>
+        <li>Construeix la <strong>taula de freqüències</strong> completa (absoluta, relativa i percentual).</li>
+        <li>Calcula la <strong>mitjana</strong> d'alumnes per categoria d'esport.</li>
+        <li>Té sentit calcular la <strong>mediana</strong> per a aquestes dades? Per quin motiu?</li>
+        <li class="competencia-li">🧠 <strong>Competències bàsiques:</strong> Creus que els resultats reflecteixen la realitat esportiva de tots els joves de Catalunya? Quins factors podrien fer que la mostra no fos representativa? Com faries un estudi més fiable?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- EXERCICI 6: HISTOGRAMA -->
+<div class="exercici ex-c6">
+  <div class="ex-header">
+    <!-- SVG: cinta mètrica persona -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <circle cx="36" cy="16" r="9" fill="white" opacity=".9"/>
+        <rect x="30" y="27" width="12" height="22" rx="4" fill="white" opacity=".9"/>
+        <line x1="24" y1="32" x2="30" y2="36" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="48" y1="32" x2="42" y2="36" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="30" y1="49" x2="25" y2="64" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <line x1="42" y1="49" x2="47" y2="64" stroke="white" stroke-width="3" stroke-linecap="round"/>
+        <rect x="12" y="28" width="5" height="30" rx="2" fill="rgba(255,255,255,.6)"/>
+        <line x1="17" y1="32" x2="20" y2="32" stroke="rgba(255,255,255,.8)" stroke-width="1.5"/>
+        <line x1="17" y1="38" x2="20" y2="38" stroke="rgba(255,255,255,.8)" stroke-width="1.5"/>
+        <line x1="17" y1="44" x2="20" y2="44" stroke="rgba(255,255,255,.8)" stroke-width="1.5"/>
+        <line x1="17" y1="50" x2="20" y2="50" stroke="rgba(255,255,255,.8)" stroke-width="1.5"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 6 · HISTOGRAMA</div>
+      <h3>Alçada dels alumnes de 3r ESO</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box green">
+      Es va mesurar l'alçada (en cm) de 36 alumnes. Les dades es van agrupar en intervals i es mostren en el histograma:
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">Alçada dels alumnes de 3r ESO &nbsp;(n = 36)</div>
+      <!-- SVG histogram: max=12, h=220, each unit=220/12≈18.33px -->
+      <svg viewBox="0 0 460 290" style="width:100%;display:block;">
+        <!-- axes -->
+        <line x1="55" y1="20" x2="55" y2="240" stroke="#555" stroke-width="3"/>
+        <line x1="55" y1="240" x2="445" y2="240" stroke="#555" stroke-width="3"/>
+        <!-- y grid and labels (max=12, step=3, unit=220/12=18.33) -->
+        <line x1="53" y1="240" x2="445" y2="240" stroke="#ddd" stroke-width="1"/>
+        <text x="45" y="244" text-anchor="end" font-size="12" fill="#666">0</text>
+        <line x1="53" y1="185" x2="445" y2="185" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="45" y="189" text-anchor="end" font-size="12" fill="#666">3</text>
+        <line x1="53" y1="130" x2="445" y2="130" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="45" y="134" text-anchor="end" font-size="12" fill="#666">6</text>
+        <line x1="53" y1="75" x2="445" y2="75" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="45" y="79" text-anchor="end" font-size="12" fill="#666">9</text>
+        <line x1="53" y1="20" x2="445" y2="20" stroke="#ddd" stroke-width="1" stroke-dasharray="4,3"/>
+        <text x="45" y="24" text-anchor="end" font-size="12" fill="#666">12</text>
+        <!-- bars touching (no gap): 5 bars, total width=390, each=78px -->
+        <!-- [145,155) n=2 → h=2/12*220=36.7 → y=203.3 -->
+        <rect x="55" y="203" width="78" height="37" fill="#27ae60" stroke="white" stroke-width="1"/>
+        <text x="94" y="196" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">2</text>
+        <text x="94" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#444">[145,155)</text>
+        <!-- [155,165) n=7 → h=7/12*220=128.3 → y=111.7 -->
+        <rect x="133" y="112" width="78" height="128" fill="#2ecc71" stroke="white" stroke-width="1"/>
+        <text x="172" y="105" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">7</text>
+        <text x="172" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#444">[155,165)</text>
+        <!-- [165,175) n=12 → h=220 → y=20 -->
+        <rect x="211" y="20" width="78" height="220" fill="#145a32" stroke="white" stroke-width="1"/>
+        <text x="250" y="13" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">12</text>
+        <text x="250" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#444">[165,175)</text>
+        <!-- [175,185) n=9 → h=9/12*220=165 → y=75 -->
+        <rect x="289" y="75" width="78" height="165" fill="#27ae60" stroke="white" stroke-width="1"/>
+        <text x="328" y="68" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">9</text>
+        <text x="328" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#444">[175,185)</text>
+        <!-- [185,195) n=6 → h=6/12*220=110 → y=130 -->
+        <rect x="367" y="130" width="78" height="110" fill="#58d68d" stroke="white" stroke-width="1"/>
+        <text x="406" y="123" text-anchor="middle" font-size="12" font-weight="bold" fill="#333">6</text>
+        <text x="406" y="260" text-anchor="middle" font-size="10" font-weight="700" fill="#444">[185,195)</text>
+        <!-- y axis label -->
+        <text x="14" y="135" text-anchor="middle" font-size="11" fill="#888" transform="rotate(-90,14,135)">Nombre d'alumnes</text>
+      </svg>
+      <p style="text-align:center;font-size:.8em;color:#888;margin-top:6px;">Eix Y: nombre d'alumnes &nbsp;·&nbsp; Barres <strong>juntes</strong> (dades contínues) → és un histograma, no un diagrama de barres</p>
+    </div>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Completa la taula de freqüències a partir del histograma (inclou la marca de classe i $F_i$ acumulada).</li>
+        <li>Calcula l'<strong>alçada mitjana aproximada</strong>: $\bar{x} \approx \dfrac{\sum f_i \cdot m_i}{N}$</li>
+        <li>Quin és l'<strong>interval modal</strong>?</li>
+        <li>$N = 36$ (parell) → posició mediana: $\frac{36}{2} = 18$. Usa la columna $F_i$ per identificar l'<strong>interval medià</strong>.</li>
+        <li>Quin percentatge d'alumnes fa <strong>més de 175 cm</strong>?</li>
+        <li class="competencia-li">🧠 <strong>Competències bàsiques:</strong> La distribució del histograma és simètrica, esbiaixada a l'esquerra o a la dreta? Creus que la distribució seria igual si separéssim nois i noies? Per quin motiu?</li>
+      </ol>
+    </div>
+  </div>
+</div>
+
+<!-- EXERCICI 7: DIAGRAMA DE SECTORS -->
+<div class="exercici ex-c7">
+  <div class="ex-header">
+    <!-- SVG: bus + bici + persona caminant -->
+    <div class="ex-illustration">
+      <svg width="72" height="72" viewBox="0 0 72 72">
+        <rect x="8" y="38" width="30" height="18" rx="4" fill="white" opacity=".9"/>
+        <rect x="10" y="32" width="26" height="12" rx="3" fill="rgba(255,255,255,.7)"/>
+        <circle cx="16" cy="58" r="5" fill="white" opacity=".9"/>
+        <circle cx="32" cy="58" r="5" fill="white" opacity=".9"/>
+        <circle cx="52" cy="50" r="7" fill="rgba(255,255,255,.5)"/>
+        <circle cx="62" cy="50" r="7" fill="rgba(255,255,255,.5)"/>
+        <ellipse cx="57" cy="44" rx="8" ry="4" fill="rgba(255,255,255,.7)"/>
+        <rect x="53" y="36" width="8" height="10" rx="2" fill="rgba(255,255,255,.8)"/>
+        <line x1="57" y1="44" x2="52" y2="50" stroke="rgba(255,255,255,.9)" stroke-width="2"/>
+        <line x1="57" y1="44" x2="62" y2="50" stroke="rgba(255,255,255,.9)" stroke-width="2"/>
+        <circle cx="57" cy="30" r="5" fill="rgba(255,255,255,.9)"/>
+        <line x1="57" y1="35" x2="57" y2="42" stroke="rgba(255,255,255,.9)" stroke-width="2"/>
+      </svg>
+    </div>
+    <div class="ex-header-text">
+      <div class="ex-badge">EXERCICI 7 · DIAGRAMA DE SECTORS</div>
+      <h3>Mitjà de transport per anar a l'escola</h3>
+    </div>
+  </div>
+  <div class="ex-body">
+    <div class="context-box red">
+      Es va preguntar a 60 alumnes de l'institut quin mitjà de transport utilitzen per anar a l'escola cada dia:
+    </div>
+    <div class="chart-wrapper">
+      <div class="chart-title">Mitjà de transport per anar a l'escola &nbsp;(n = 60)</div>
+      <div class="pie-container">
+        <img src="data:image/png;base64,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" style="max-width:100%;display:block;margin:0 auto;border-radius:12px;" alt="Diagrama de sectors - Mitjà de transport"/>
+      </div>
+    </div>
+    <div class="recorda">
+      <strong>Recorda:</strong> L'angle de cada sector = $h_i \times 360°$ &nbsp;·&nbsp; 
+      $h_i = \dfrac{f_i}{N}$ &nbsp;·&nbsp;
+      Exemple: A peu → $\frac{18}{60} \times 360° = 108°$
+    </div>
+    <div class="preguntes">
+      <h4>🔎 Preguntes</h4>
+      <ol>
+        <li>Construeix la <strong>taula de freqüències</strong> completa a partir del gràfic.</li>
+        <li>Calcula l'<strong>angle en graus</strong> de cada sector i comprova que sumen exactament 360°.</li>
+        <li>Quin és el <strong>mitjà de transport modal</strong>?</li>
+        <li>Quin percentatge d'alumnes utilitza un transport <strong>sostenible</strong> (a peu, bicicleta, autobús o metro)?</li>
+        <li>Per a aquestes dades, té sentit calcular la <strong>mitjana</strong> i la <strong>mediana</strong>? Raona la resposta.</li>
+
+      </ol>
+    </div>
+  </div>
+</div>
+
+
+<!-- FOOTER -->
+<div class="doc-footer">
+  Estadística · 3r d'ESO &nbsp;·&nbsp; Mitjana · Mediana · Moda · Taules de freqüències · Gràfics
+</div>
+
+</div><!-- /inner -->
+</div><!-- /container -->
+</body>
+</html>
